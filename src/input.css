@@ -1,0 +1,90 @@
+@import "tailwindcss";
+@source "../**/*.php";
+@source "../**/*.html";
+@source "../**/*.js";
+
+@theme{
+    --color-primary: #1A365D;
+    --color-secondary: #F7FAFC;
+    --color-tertiary: #4F2E00;
+    --color-neutral:#4A5568;
+
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1536px;
+
+    --font-headline: 'Inter', sans-serif;
+    --font-body: 'Geist', sans-serif;
+    --font-label: 'Inter', sans-serif;
+}
+
+@utility primary-btn{
+    background-color:var(--color-primary);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:var(--font-label);
+    font-weight:600;
+}
+
+
+@utility secondary-btn{
+    border-radius:4px;
+    background-color:var(--color-secondary);
+    color:var(--color-neutral);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:var(--font-label);
+    font-weight:600;
+}
+
+@utility neutral-btn{
+    border-radius:4px;
+    background-color:var(--color-neutral);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:var(--font-label);
+    font-weight:600;
+}
+
+@utility outline-btn{
+    border-radius:4px;
+    background-color:transparent;
+    border:2px solid var(--color-primary);
+    color:var(--color-neutral);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:var(--font-label);
+    font-weight:600;
+}
+
+@utility h1{
+    color:var(--color-neutral);
+    font-family:var(--font-headline);
+    font-size:30px;
+    font-weight:bold;
+}
+@utility h2{
+    color:var(--color-neutral);
+    font-family:var(--font-headline);
+    font-size:20px;
+    font-weight:bold;
+}
+@utility h3{
+    color:var(--color-neutral);
+    font-family:var(--font-headline);
+    font-weight:bold;
+}
+@utility bg-hero {
+    background-image: url('../assets/hero.jpg');
+}
+@utility bg-body {
+    background-image: url('../assets/body.jpg');
+}
