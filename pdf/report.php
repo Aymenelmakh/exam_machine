@@ -105,7 +105,7 @@ function generateReportPDF(PDO $pdo, int $eventId, string $outputMode = 'D', str
     }
 
     // 2. Get registration stats
-    $capacity = (int)$event['capacity'] > 0 ? (int)$event['capacity'] : 1; // Prevent division by zero
+    $capacity = (int)$event['capacity'] > 0 ? (int)$event['capacity'] : 1; // Prevent division by zero error
     $statsStmt = $pdo->prepare(
         'SELECT COUNT(*) AS registered_count,
                 (' . $capacity . ' - COUNT(*)) AS available_places,

@@ -500,6 +500,7 @@ const MOCK = [
     desc:"Journée PHP 8.x, MVC natif, bonnes pratiques et sécurité.", color:"#0f1f3d" },
 ];
 
+let liveEvents = []; // Array to store events from the API
 let currentTab = 'all';
 let selected   = null;
 let debTimer   = null;
@@ -540,6 +541,7 @@ async function loadEvents() {
     const result = await response.json();
 
     if (result.success) {
+      liveEvents = result.data; // Store live data
       renderCards(result.data); // Utiliser les données de l'API
       anim('h-total', result.meta.total); // Mettre à jour le total dans le bandeau
     } else {
@@ -631,14 +633,14 @@ function renderCards(list) {
 
 // ── MODAL INSCRIPTION ──────────────────────────────────────────
 function openReg(id) {
-  selected = MOCK.find(e => e.id === id);
+  selected = liveEvents.find(e => e.id === id); // ✅ FIX: Use live data instead of MOCK
   if (!selected) return;
-  const pct = Math.round(selected.reg / selected.cap * 100);
-  const rem = selected.cap - selected.reg;
+  const pct = selected.fill_percentage;
+  const rem = selected.available_places;
   document.getElementById('m-title').textContent = selected.title;
   document.getElementById('m-info').textContent  =
-    new Date(selected.date).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})
-    + ' · ' + selected.loc;
+    new Date(selected.event_date).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})
+    + ' · ' + selected.location;
   document.getElementById('m-places').textContent = `${rem} place${rem>1?'s':''} restante${rem>1?'s':''}`;
   document.getElementById('m-bar').style.width      = pct + '%';
   document.getElementById('m-bar').style.background = pct>=80 ? '#f59e0b' : '#2563eb';
@@ -672,7 +674,7 @@ async function submitReg() {
     }
 
     // Mettre à jour l'UI avec les données de la réponse
-    const newRegisteredCount = selected.reg + 1;
+    const newRegisteredCount = selected.registered_count + 1; // ✅ FIX: Use correct property name
     const pct = result.capacity_pct;
     const plEl = document.getElementById(`pl-${selected.id}`);
     const barEl = document.getElementById(`bar-${selected.id}`);
@@ -791,9 +793,10 @@ async function fetchStats() {
 
 // ── HERO STATS ──────────────────────────────────────────────────
 function updateHero() {
-  anim('h-total',    MOCK.length);
-  anim('h-inscrits', MOCK.reduce((s,e)=>s+e.reg,0));
-  anim('h-complets', MOCK.filter(e=>e.reg>=e.cap).length);
+  // This function should also be updated to use live data if the dashboard is implemented
+  anim('h-total',    liveEvents.length);
+  anim('h-inscrits', liveEvents.reduce((s,e)=>s+e.registered_count,0));
+  anim('h-complets', liveEvents.filter(e=>e.available_places<=0).length);
   anim('h-new24',    Math.floor(Math.random()*8)+3);
 }
 

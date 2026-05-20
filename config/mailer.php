@@ -15,8 +15,8 @@
  */
 
 // ── TODO 2.0 — Complétez ces constantes avec vos paramètres SMTP ──────────
-define('SMTP_HOST', 'sandbox.smtp.mailtrap.io');          // Ex: smtp.gmail.com  ou  smtp.mailtrap.io
-define('SMTP_PORT', 587);         // 587 (TLS) ou 465 (SSL)
+define('SMTP_HOST', 'sandbox.smtp.mailtrap.io');          // ✅ FIX: Use the legacy Mailtrap host for your credentials.
+define('SMTP_PORT', 2525);         // 587 (TLS) ou 465 (SSL)
 define('SMTP_USER', 'dbc24132ee5a48');          // Remplacez par VOTRE nom d'utilisateur Mailtrap
 define('SMTP_PASS', '191c0c2353ae36');          // Remplacez par VOTRE mot de passe Mailtrap
 define('SMTP_FROM_NAME',  'EventHub Pro — ENSA Marrakech');
